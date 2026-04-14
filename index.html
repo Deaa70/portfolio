@@ -2,12 +2,1622 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/src/assets/deaa-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deaa Naser</title>
+    <title>Deaa Naser | Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+      :root {
+        --primary: #10b981;
+        --primary-dark: #059669;
+        --bg-dark: #0a0a0f;
+        --bg-card: #13131f;
+        --border: #1e1e2e;
+      }
+
+      * {
+        font-family: "Inter", sans-serif;
+      }
+
+      .font-mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      body {
+        background: var(--bg-dark);
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+
+      /* Animated gradient background */
+      .gradient-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background:
+          radial-gradient(
+            ellipse at 20% 20%,
+            rgba(16, 185, 129, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(99, 102, 241, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(16, 185, 129, 0.05) 0%,
+            transparent 70%
+          );
+        animation: gradientShift 20s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(30px, -30px) scale(1.1);
+        }
+        66% {
+          transform: translate(-20px, 20px) scale(0.9);
+        }
+      }
+
+      /* Noise texture overlay */
+      .noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary);
+      }
+
+      /* Gradient text animation */
+      .gradient-text {
+        background: linear-gradient(
+          135deg,
+          #10b981 0%,
+          #34d399 25%,
+          #6366f1 50%,
+          #10b981 75%,
+          #34d399 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientFlow 5s linear infinite;
+      }
+
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      /* Glass card effect */
+      .glass-card {
+        background: rgba(19, 19, 31, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Glow effect on hover */
+      .glow-hover {
+        transition: all 0.3s ease;
+      }
+      .glow-hover:hover {
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+        border-color: rgba(16, 185, 129, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Skill tag animation */
+      .skill-tag {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .skill-tag:hover {
+        transform: scale(1.05) rotate(-1deg);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      }
+
+      /* Project card reveal */
+      .project-card {
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: left 0.7s;
+      }
+      .project-card:hover::before {
+        left: 100%;
+      }
+
+      /* Timeline connector */
+      .timeline-line {
+        position: absolute;
+        left: 24px;
+        top: 60px;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #10b981, transparent);
+      }
+
+      @media (max-width: 768px) {
+        .timeline-line {
+          left: 20px;
+        }
+      }
+
+      /* Floating animation */
+      .float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Cursor effect */
+      .cursor-glow {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(16, 185, 129, 0.15) 0%,
+          transparent 70%
+        );
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s;
+      }
+
+      /* Bento grid */
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      }
+      @media (max-width: 1024px) {
+        .bento-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 640px) {
+        .bento-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Section reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      /* Custom button styles */
+      .btn-primary {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      /* Tech stack tags for projects */
+      .tech-tag {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 9999px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* Mobile menu */
+      .mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+
+      /* Responsive typography */
+      @media (max-width: 640px) {
+        .hero-title {
+          font-size: 2.5rem;
+          line-height: 1.2;
+        }
+        .hero-subtitle {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="antialiased">
+    <div class="gradient-bg"></div>
+    <div class="noise"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/5">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold gradient-text">&lt;Deaa/&gt;</div>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+          <a href="#about" class="hover:text-emerald-400 transition-colors"
+            >About</a
+          >
+          <a href="#experience" class="hover:text-emerald-400 transition-colors"
+            >Experience</a
+          >
+          <a href="#skills" class="hover:text-emerald-400 transition-colors"
+            >Skills</a
+          >
+          <a href="#projects" class="hover:text-emerald-400 transition-colors"
+            >Projects</a
+          >
+          <a href="#contact" class="hover:text-emerald-400 transition-colors"
+            >Contact</a
+          >
+        </div>
+
+        <div class="hidden md:block">
+          <button
+            class="btn-primary px-6 py-2 rounded-full text-sm font-semibold text-white">
+            Let's Talk
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobileMenuBtn"
+          class="md:hidden text-gray-400 hover:text-white">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobileMenu"
+        class="mobile-menu fixed top-0 right-0 h-full w-64 bg-[#0a0a0f] border-l border-white/10 p-6 md:hidden z-50">
+        <button
+          id="closeMenuBtn"
+          class="absolute top-4 right-4 text-gray-400 hover:text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex flex-col gap-6 mt-12">
+          <a
+            href="#about"
+            class="text-gray-400 hover:text-emerald-400 transition-colors text-lg"
+            >About</a
+          >
+          <a
+            href="#experience"
+            class="text-gray-400 hover:text-emerald-400 transition-colors text-lg"
+            >Experience</a
+          >
+          <a
+            href="#skills"
+            class="text-gray-400 hover:text-emerald-400 transition-colors text-lg"
+            >Skills</a
+          >
+          <a
+            href="#projects"
+            class="text-gray-400 hover:text-emerald-400 transition-colors text-lg"
+            >Projects</a
+          >
+          <a
+            href="#contact"
+            class="text-gray-400 hover:text-emerald-400 transition-colors text-lg"
+            >Contact</a
+          >
+          <button
+            class="btn-primary px-6 py-3 rounded-full text-sm font-semibold text-white mt-4">
+            Let's Talk
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="about"
+      class="min-h-screen flex items-center justify-center relative pt-20 px-4 sm:px-6">
+      <div
+        class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div
+          class="space-y-6 sm:space-y-8 text-center lg:text-left order-2 lg:order-1">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-emerald-400 text-sm font-mono mx-auto lg:mx-0">
+            <span
+              class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Available for opportunities
+          </div>
+
+          <h1
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight hero-title">
+            Hello, I'm <span class="gradient-text">Deaa</span>
+            <br />
+            <span
+              class="text-gray-400 text-2xl sm:text-4xl md:text-5xl lg:text-6xl hero-subtitle block mt-2"
+              >Software Engineer</span
+            >
+          </h1>
+
+          <p
+            class="text-base sm:text-lg text-gray-400 max-w-lg mx-auto lg:mx-0 leading-relaxed px-4 sm:px-0">
+            I craft responsive web and mobile applications with modern
+            technologies. Combining technical proficiency with sharp critical
+            thinking and problem-solving abilities to deliver clean, scalable
+            code and tackle complex challenges.
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start px-4 sm:px-0">
+            <a
+              href="#projects"
+              class="btn-primary px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-white flex items-center justify-center gap-2">
+              View Projects
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a
+            download="./src/assets/Deaa_Naser_CV.pdf"
+            href="./src/assets/Deaa_Naser_CV.pdf"
+              class="px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold border border-white/10 hover:border-emerald-400/50 hover:bg-emerald-400/5 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Resume
+            </a>
+          </div>
+
+          <div class="flex gap-6 justify-center lg:justify-start pt-4">
+            <a
+              href="https://github.com/Deaa70"
+              target="_blank"
+              class="text-gray-400 hover:text-emerald-400 transition-colors">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6"
+                  viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M16.24 22a1 1 0 0 1-1-1v-2.6a2.15 2.15 0 0 0-.54-1.66a1 1 0 0 1 .61-1.67C17.75 14.78 20 14 20 9.77a4 4 0 0 0-.67-2.22a2.75 2.75 0 0 1-.41-2.06a3.7 3.7 0 0 0 0-1.41a7.7 7.7 0 0 0-2.09 1.09a1 1 0 0 1-.84.15a10.15 10.15 0 0 0-5.52 0a1 1 0 0 1-.84-.15a7.4 7.4 0 0 0-2.11-1.09a3.5 3.5 0 0 0 0 1.41a2.84 2.84 0 0 1-.43 2.08a4.07 4.07 0 0 0-.67 2.23c0 3.89 1.88 4.93 4.7 5.29a1 1 0 0 1 .82.66a1 1 0 0 1-.21 1a2.06 2.06 0 0 0-.55 1.56V21a1 1 0 0 1-2 0v-.57a6 6 0 0 1-5.27-2.09a3.9 3.9 0 0 0-1.16-.88a1 1 0 1 1 .5-1.94a4.9 4.9 0 0 1 2 1.36c1 1 2 1.88 3.9 1.52a3.9 3.9 0 0 1 .23-1.58c-2.06-.52-5-2-5-7a6 6 0 0 1 1-3.33a.85.85 0 0 0 .13-.62a5.7 5.7 0 0 1 .33-3.21a1 1 0 0 1 .63-.57c.34-.1 1.56-.3 3.87 1.2a12.16 12.16 0 0 1 5.69 0c2.31-1.5 3.53-1.31 3.86-1.2a1 1 0 0 1 .63.57a5.7 5.7 0 0 1 .33 3.22a.75.75 0 0 0 .11.57a6 6 0 0 1 1 3.34c0 5.07-2.92 6.54-5 7a4.3 4.3 0 0 1 .22 1.67V21a1 1 0 0 1-.94 1" />
+                </svg>
+              </div>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/deaa-naser-b28573351?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+              class="text-gray-400 hover:text-emerald-400 transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  d="M9.429 8.969h3.714v1.85c.535-1.064 1.907-2.02 3.968-2.02c3.951 0 4.889 2.118 4.889 6.004V22h-4v-6.312c0-2.213-.535-3.461-1.897-3.461c-1.889 0-2.674 1.345-2.674 3.46V22h-4zM2.57 21.83h4V8.799h-4zM7.143 4.55a2.53 2.53 0 0 1-.753 1.802a2.57 2.57 0 0 1-1.82.748a2.6 2.6 0 0 1-1.818-.747A2.55 2.55 0 0 1 2 4.55c0-.677.27-1.325.753-1.803A2.58 2.58 0 0 1 4.571 2c.682 0 1.336.269 1.819.747s.753 1.126.753 1.803"
+                  clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a
+              href="https://www.facebook.com/deaa.naser.52/"
+              class="text-gray-400 hover:text-emerald-400 transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02" />
+              </svg>
+            </a>
+            <a
+              href="mailto:deaa.work7@gmail.com"
+
+              class="text-gray-400 hover:text-emerald-400 transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                viewBox="0 0 14 14">
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1">
+                  <path
+                    d="M1.743 12.003h2.65V3.088l-.812-.52C2.406 1.816.86 2.658.86 4.05v7.074c0 .486.396.88.884.88" />
+                  <path
+                    d="M.86 4.05v1.176l3.533 2.263l2.65 1.698l2.65-1.698l3.534-2.263V4.049c0-1.392-1.547-2.234-2.723-1.48l-.81.52l-2.651 1.697l-2.65-1.698l-.812-.52C2.406 1.816.86 2.658.86 4.05" />
+                  <path
+                    d="M9.693 12.003h2.65a.88.88 0 0 0 .883-.88V4.049c0-1.392-1.546-2.234-2.722-1.48l-.81.52z" />
+                </g>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative order-1 lg:order-2 px-4 sm:px-0">
+          <div
+            class="absolute inset-0 bg-linear-to-r from-emerald-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+          <div
+            class="relative glass-card rounded-3xl p-2 float mx-auto max-w-sm lg:max-w-none">
+            <img
+              src="./src/assets/me.jpg"
+              alt="Deaa Naser"
+              class="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover rounded-2xl image-mask" />
+            <div
+              class="absolute bottom-4 left-4 right-4 glass-card rounded-xl p-3 sm:p-4">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                  <i
+                    data-lucide="code-2"
+                    class="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400"></i>
+                </div>
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm sm:text-base truncate">
+                    Full Stack Developer
+                  </div>
+                  <div class="text-xs sm:text-sm text-gray-400 truncate">
+                    React • TypeScript • Django
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badges -->
+          <div
+            class="absolute -top-2 sm:-top-4 -right-2 sm:-right-4 glass-card rounded-xl px-3 py-1 sm:px-4 sm:py-2 float text-xs sm:text-sm"
+            style="animation-delay: 1s">
+            <div class="flex items-center gap-2">
+              <i
+                data-lucide="zap"
+                class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400"></i>
+              <span class="font-mono">3+ Years</span>
+            </div>
+          </div>
+          <div
+            class="absolute -bottom-2 sm:-bottom-4 -left-2 sm:-left-4 glass-card rounded-xl px-3 py-1 sm:px-4 sm:py-2 float text-xs sm:text-sm"
+            style="animation-delay: 2s">
+            <div class="flex items-center gap-2">
+              <i
+                data-lucide="award"
+                class="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400"></i>
+              <span class="font-mono">3+ Projects</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section - Bento Grid -->
+    <section id="skills" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12 sm:mb-16 reveal">
+          <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+            Skills & Technologies
+          </h2>
+          <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+            The skills, tools and technologies I am good at
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Frontend - Large Card -->
+          <div
+            class="glass-card rounded-2xl p-4 sm:p-6 glow-hover col-span-1 sm:col-span-2 row-span-2 reveal">
+            <div class="flex items-center gap-3 mb-4 sm:mb-6">
+              <div
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0">
+                <i
+                  data-lucide="layout"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+              </div>
+              <h3 class="text-lg sm:text-xl font-semibold">Frontend</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >React</span
+              >
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs sm:text-sm border border-yellow-500/20"
+                >JavaScript</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >TypeScript</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs sm:text-sm border border-cyan-500/20"
+                >Tailwind CSS</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs sm:text-sm border border-purple-500/20"
+                >shadcn/ui</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >Vite</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs sm:text-sm border border-red-500/20"
+                >Zustand</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs sm:text-sm border border-indigo-500/20"
+                >Redux</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 text-xs sm:text-sm border border-pink-500/20"
+                >TanStack Query</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs sm:text-sm border border-green-500/20"
+                >React Hook Form</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs sm:text-sm border border-yellow-500/20"
+                >Zod</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >React Router DOM</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-gray-500/10 text-gray-400 text-xs sm:text-sm border border-gray-500/20"
+                >Lucide React</span
+              >
+
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs sm:text-sm border border-green-500/20"
+                >Lazy loading</span
+              >
+
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs sm:text-sm border border-indigo-500/20"
+                >Custom hooks</span
+              >
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover reveal">
+            <div class="flex items-center gap-3 mb-3 sm:mb-4">
+              <div
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0">
+                <i
+                  data-lucide="server"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-green-400"></i>
+              </div>
+              <h3 class="font-semibold text-sm sm:text-base">Backend</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs sm:text-sm border border-green-500/20"
+                >Python</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs sm:text-sm border border-green-500/20"
+                >Django</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs sm:text-sm border border-red-500/20"
+                >DRF</span>
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >JWT</span
+              >
+
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >Celery</span
+              >
+
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs sm:text-sm border border-purple-500/20"
+                >Celery beats</span
+              >
+            </div>
+          </div>
+
+          <!-- Database -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover reveal">
+            <div class="flex items-center gap-3 mb-3 sm:mb-4">
+              <div
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center shrink-0">
+                <i
+                  data-lucide="database"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400"></i>
+              </div>
+              <h3 class="font-semibold text-sm sm:text-base">Database</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs sm:text-sm border border-yellow-500/20"
+                >MySQL</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs sm:text-sm border border-red-500/20"
+                >Redis</span
+              >
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >Qdrant</span
+              >
+
+            </div>
+          </div>
+
+          <!-- Mobile - Wide Card -->
+          <div
+            class="glass-card rounded-2xl p-4 sm:p-6 glow-hover col-span-1 sm:col-span-2 reveal">
+            <div class="flex items-center gap-3 mb-3 sm:mb-4">
+              <div
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-purple-500/20 flex items-center justify-center shrink-0">
+                <i
+                  data-lucide="smartphone"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-purple-400"></i>
+              </div>
+              <h3 class="font-semibold text-sm sm:text-base">Mobile</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >React Native</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-black/30 text-gray-300 text-xs sm:text-sm border border-white/10"
+                >Expo</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs sm:text-sm border border-cyan-500/20"
+                >NativeWind</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs sm:text-sm border border-purple-500/20"
+                >GlueStack UI</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >EAS</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >Expo Router</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >Expo Notifications</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs sm:text-sm border border-yellow-500/20"
+                >Expo File System</span
+              >
+            </div>
+          </div>
+
+          <!-- DevOps -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover reveal">
+            <div class="flex items-center gap-3 mb-3 sm:mb-4">
+              <div
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-orange-500/20 flex items-center justify-center shrink-0">
+                <i
+                  data-lucide="cloud"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"></i>
+              </div>
+              <h3 class="font-semibold text-sm sm:text-base">DevOps</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >Docker</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >Dockploy</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-gray-500/10 text-gray-400 text-xs sm:text-sm border border-gray-500/20"
+                >VPS</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs sm:text-sm border border-yellow-500/20"
+                >Cloudflare</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs sm:text-sm border border-red-500/20"
+                >Backblaze S3</span
+              >
+            </div>
+          </div>
+
+          <!-- Tools -->
+          <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover reveal">
+            <div class="flex items-center gap-3 mb-3 sm:mb-4">
+              <div
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-pink-500/20 flex items-center justify-center shrink-0">
+                <i
+                  data-lucide="wrench"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-pink-400"></i>
+              </div>
+              <h3 class="font-semibold text-sm sm:text-base">Tools</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >Git</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs sm:text-sm border border-blue-500/20"
+                >Trello</span
+              >
+              <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm border border-orange-500/20"
+                >Firebase</span
+              >
+ 
+                            <span
+                class="skill-tag px-2 sm:px-3 py-1 rounded-full bg-gray-500/10 text-gray-400 text-xs sm:text-sm border border-gray-500/20"
+                >RAG</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 sm:py-24 relative px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12 sm:mb-16 reveal">
+          <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+            Experience
+          </h2>
+          <p class="text-gray-400 text-sm sm:text-base">
+            Here is a quick summary of my most recent experiences
+          </p>
+        </div>
+
+        <div class="relative space-y-8 sm:space-y-12">
+          <div class="timeline-line"></div>
+
+          <!-- Frontend -->
+          <div class="relative pl-12 sm:pl-16 reveal">
+            <div
+              class="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center z-10">
+              <i
+                data-lucide="monitor"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400"></i>
+            </div>
+            <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover">
+              <div class="flex flex-wrap justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-lg sm:text-xl font-semibold mb-1">
+                    Frontend Development
+                  </h3>
+                  <p class="text-emerald-400 font-mono text-xs sm:text-sm">
+                    Mar 2024 - Present
+                  </p>
+                </div>
+              </div>
+              <ul class="space-y-2 text-gray-400 text-sm sm:text-base">
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Build responsive web apps with
+                    <strong class="text-white">React</strong>,
+                    <strong class="text-white">TypeScript</strong>, and
+                    <strong class="text-white">Vite</strong></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Style with
+                    <strong class="text-white">Tailwind CSS</strong> and
+                    <strong class="text-white">shadcn/ui</strong> for modern,
+                    customizable interfaces</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Manage state using
+                    <strong class="text-white">Zustand</strong> and
+                    <strong class="text-white">Redux</strong></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Handle data fetching/caching with
+                    <strong class="text-white">TanStack Query</strong></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Implement forms with
+                    <strong class="text-white">React Hook Form</strong> and
+                    <strong class="text-white">Zod</strong> validation</span
+                  >
+                </li>
+       
+                                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Visualize and optimize bundle size using 
+                    <strong class="text-white">Rollup Plugin Visualizer </strong> and
+                    <strong class="text-white"> Vite Externals</strong>
+
+                  </li>
+
+                           <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-emerald-400 mt-1 shrink-0"></i>
+                  <span
+                    >Focus on performance, accessibility, and responsive
+                    design</span
+                  >
+                </li>
+
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="relative pl-12 sm:pl-16 reveal">
+            <div
+              class="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center z-10">
+              <i
+                data-lucide="server"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+            </div>
+            <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover">
+              <div class="flex flex-wrap justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-lg sm:text-xl font-semibold mb-1">
+                    Backend Development
+                  </h3>
+                  <p class="text-blue-400 font-mono text-xs sm:text-sm">
+                    Mar 2024 - Present
+                  </p>
+                </div>
+              </div>
+              <ul class="space-y-2 text-gray-400 text-sm sm:text-base">
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Develop scalable APIs with
+                    <strong class="text-white">Python</strong>,
+                    <strong class="text-white">Django</strong>, and
+                    <strong class="text-white"
+                      >Django REST Framework</strong
+                    ></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Implement
+                    <strong class="text-white">JWT</strong> authentication and
+                    secure authorization</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Optimize performance with
+                    <strong class="text-white">Redis</strong> caching and
+                    <strong class="text-white">Celery</strong> for async
+                    tasks</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Manage <strong class="text-white">MySQL</strong> databases
+                    with efficient query design</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Deploy on <strong class="text-white">VPS</strong>, using
+                    <strong class="text-white">Dockploy</strong> for
+                    containerization and
+                    <strong class="text-white">Cloudflare</strong> for
+                    CDN/DNS</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Integrate
+                    <strong class="text-white">Backblaze S3</strong> for
+                    scalable storage and automated backups</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-blue-400 mt-1 shrink-0"></i>
+                  <span
+                    >Used
+                    <strong class="text-white">Qdrant Vector Database</strong> for
+RAG based feature</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Mobile -->
+          <div class="relative pl-12 sm:pl-16 reveal">
+            <div
+              class="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/20 border-2 border-purple-500 flex items-center justify-center z-10">
+              <i
+                data-lucide="smartphone"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-purple-400"></i>
+            </div>
+            <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover">
+              <div class="flex flex-wrap justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-lg sm:text-xl font-semibold mb-1">
+                    Mobile Development
+                  </h3>
+                  <p class="text-purple-400 font-mono text-xs sm:text-sm">
+                    Mar 2024 - Present
+                  </p>
+                </div>
+              </div>
+              <ul class="space-y-2 text-gray-400 text-sm sm:text-base">
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-purple-400 mt-1 shrink-0"></i>
+                  <span
+                    >Build cross-platform iOS/Android apps with
+                    <strong class="text-white">React Native</strong> and
+                    <strong class="text-white">Expo</strong></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-purple-400 mt-1 shrink-0"></i>
+                  <span
+                    >Implement navigation using
+                    <strong class="text-white">Expo Router</strong></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-purple-400 mt-1 shrink-0"></i>
+                  <span
+                    >Style with
+                    <strong class="text-white">NativeWind</strong> (Tailwind for
+                    React Native) and
+                    <strong class="text-white">GlueStack UI</strong></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-purple-400 mt-1 shrink-0"></i>
+                  <span
+                    >Deploy production builds via
+                    <strong class="text-white">EAS</strong> (published to Google
+                    Play)</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-purple-400 mt-1 shrink-0"></i>
+                  <span
+                    >Add offline access, push notifications, and
+                    mobile-optimized features</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Leadership -->
+          <div class="relative pl-12 sm:pl-16 reveal">
+            <div
+              class="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-500/20 border-2 border-orange-500 flex items-center justify-center z-10">
+              <i
+                data-lucide="users"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"></i>
+            </div>
+            <div class="glass-card rounded-2xl p-4 sm:p-6 glow-hover">
+              <div class="flex flex-wrap justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-lg sm:text-xl font-semibold mb-1">
+                    Project Leadership
+                  </h3>
+                  <p class="text-orange-400 font-mono text-xs sm:text-sm">
+                    Mar 2024 - Present
+                  </p>
+                </div>
+              </div>
+              <ul class="space-y-2 text-gray-400 text-sm sm:text-base">
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-orange-400 mt-1 shrink-0"></i>
+                  <span
+                    >Led end-to-end development of
+                    <strong class="text-white">Siraj LMS Platform</strong> (web)
+                    and
+                    <strong class="text-white">Siraj Edu App</strong>
+                    (mobile)</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-orange-400 mt-1 shrink-0"></i>
+                  <span
+                    >Technical decisions on stack:
+                    <strong class="text-white"
+                      >React + TypeScript, Django, Expo</strong
+                    ></span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-orange-400 mt-1 shrink-0"></i>
+                  <span
+                    >Ensured seamless integration between web and mobile
+                    platforms</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <i
+                    data-lucide="check-circle-2"
+                    class="w-4 h-4 text-orange-400 mt-1 shrink-0"></i>
+                  <span
+                    >Optimized for production: performance tuning, security
+                    hardening, scalable infrastructure (VPS, Cloudflare,
+                    automated backups, caching)</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12 sm:mb-16 reveal">
+          <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+            Featured Projects
+          </h2>
+          <p class="text-gray-400 text-sm sm:text-base">
+            Some of the projects I have built
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <!-- Siraj LMS -->
+          <div
+            class="project-card glass-card rounded-2xl overflow-hidden glow-hover reveal group">
+            <div class="relative h-40 sm:h-48 overflow-hidden">
+              <img
+                src="./src/assets/siraj-project.png"
+                alt="Siraj LMS"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              <div
+                class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-1">
+                  Siraj LMS Platform
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-400">
+                  Learning Management System
+                </p>
+              </div>
+            </div>
+            <div class="p-4 sm:p-6">
+              <p class="text-gray-400 text-xs sm:text-sm mb-4">
+                A full-featured Learning Management System built with React
+                TypeScript and Django. Includes course management, student
+                progress tracking and educational content upload.
+              </p>
+              <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
+                <span class="tech-tag bg-blue-500/10 text-blue-400">Vite</span>
+                <span class="tech-tag bg-blue-500/10 text-blue-400">React</span>
+                <span class="tech-tag bg-blue-500/10 text-blue-400"
+                  >TypeScript</span
+                >
+                <span class="tech-tag bg-cyan-500/10 text-cyan-400"
+                  >Tailwind CSS</span
+                >
+                <span class="tech-tag bg-pink-500/10 text-pink-400"
+                  >TanStack Query</span
+                >
+                <span class="tech-tag bg-blue-500/10 text-blue-400"
+                  >React Router DOM</span
+                >
+                <span class="tech-tag bg-green-500/10 text-green-400"
+                  >React Hook Form</span
+                >
+                <span class="tech-tag bg-yellow-500/10 text-yellow-400"
+                  >Zod</span
+                >
+                <span class="tech-tag bg-purple-500/10 text-purple-400"
+                  >shadcn UI</span
+                >
+                <span class="tech-tag bg-red-500/10 text-red-400">Zustand</span>
+                <span class="tech-tag bg-green-500/10 text-green-400"
+                  >Django</span
+                >
+                <span class="tech-tag bg-red-500/10 text-red-400">DRF</span>
+                <span class="tech-tag bg-yellow-500/10 text-yellow-400"
+                  >MySQL</span
+                >
+                <span class="tech-tag bg-orange-500/10 text-orange-400"
+                  >JWT</span
+                >
+                <span class="tech-tag bg-red-500/10 text-red-400">Redis</span>
+                <span class="tech-tag bg-blue-500/10 text-blue-400"
+                  >Docker</span
+                >
+              </div>
+              <div class="flex gap-2 sm:gap-3">
+                <button
+                  class="flex-1 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-medium hover:bg-emerald-500/20 transition-colors flex items-center justify-center gap-2">
+                  <i
+                    data-lucide="external-link"
+                    class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                  Live Demo
+                </button>
+ 
+              </div>
+            </div>
+          </div>
+
+          <!-- Siraj Mobile -->
+          <div
+            class="project-card glass-card rounded-2xl overflow-hidden glow-hover reveal group">
+            <div class="relative h-40 sm:h-48 overflow-hidden">
+              <img
+                src="./src/assets/siraj-phone.png"
+                alt="Siraj Mobile"
+                class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" />
+              <div
+                class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-1">
+                  Siraj Edu Mobile
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-400">
+                  Mobile Learning App
+                </p>
+              </div>
+            </div>
+            <div class="p-4 sm:p-6">
+              <p class="text-gray-400 text-xs sm:text-sm mb-4">
+                Mobile companion to the Siraj LMS platform, allowing students to
+                access courses offline, receive push notifications, and complete
+                quizzes on the go. Built with Expo and published using EAS.
+              </p>
+              <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
+                <span class="tech-tag bg-blue-500/10 text-blue-400"
+                  >React Native</span
+                >
+                <span
+                  class="tech-tag bg-black/30 text-gray-300 border border-white/10"
+                  >Expo</span
+                >
+                <span class="tech-tag bg-orange-500/10 text-orange-400"
+                  >Expo Notifications</span
+                >
+                <span class="tech-tag bg-pink-500/10 text-pink-400"
+                  >TanStack Query</span
+                >
+                <span class="tech-tag bg-cyan-500/10 text-cyan-400"
+                  >NativeWind</span
+                >
+                <span class="tech-tag bg-blue-500/10 text-blue-400"
+                  >Expo Router</span
+                >
+                <span class="tech-tag bg-green-500/10 text-green-400"
+                  >React Hook Form</span
+                >
+                <span class="tech-tag bg-yellow-500/10 text-yellow-400"
+                  >Zod</span
+                >
+                <span class="tech-tag bg-purple-500/10 text-purple-400"
+                  >GlueStack UI</span
+                >
+                <span class="tech-tag bg-red-500/10 text-red-400">Zustand</span>
+                <span class="tech-tag bg-yellow-500/10 text-yellow-400"
+                  >Expo File System</span
+                >
+                <span class="tech-tag bg-orange-500/10 text-orange-400"
+                  >Firebase</span
+                >
+              </div>
+              <div class="flex gap-2 sm:gap-3">
+                <button
+                  class="flex-1 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-medium hover:bg-emerald-500/20 transition-colors flex items-center justify-center gap-2">
+                  <i
+                    data-lucide="download"
+                    class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                  Get App
+                </button>
+       
+              </div>
+            </div>
+          </div>
+
+          <!-- Klimate -->
+          <div
+            class="project-card glass-card rounded-2xl overflow-hidden glow-hover reveal group">
+            <div class="relative h-40 sm:h-48 overflow-hidden">
+              <img
+                src="./src/assets/klimate.png"
+                alt="Klimate"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              <div
+                class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-1">Klimate</h3>
+                <p class="text-xs sm:text-sm text-gray-400">
+                  Weather Application
+                </p>
+              </div>
+            </div>
+            <div class="p-4 sm:p-6">
+              <p class="text-gray-400 text-xs sm:text-sm mb-4">
+                I developed a dynamic and responsive web application that
+                provides real-time weather updates for the user's current
+                location, as well as the ability to check the weather conditions
+                for any city around the globe.
+              </p>
+              <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
+                <span class="tech-tag bg-orange-500/10 text-orange-400"
+                  >Vite</span
+                >
+                <span class="tech-tag bg-blue-500/10 text-blue-400">React</span>
+                <span class="tech-tag bg-blue-500/10 text-blue-400"
+                  >TypeScript</span
+                >
+                <span class="tech-tag bg-cyan-500/10 text-cyan-400"
+                  >Tailwind CSS</span
+                >
+                <span class="tech-tag bg-pink-500/10 text-pink-400"
+                  >TanStack Query</span
+                >
+                <span class="tech-tag bg-purple-500/10 text-purple-400"
+                  >Shadcn/UI</span
+                >
+                <span class="tech-tag bg-indigo-500/10 text-indigo-400"
+                  >Redux</span
+                >
+                <span class="tech-tag bg-gray-500/10 text-gray-400"
+                  >Lucide React</span
+                >
+              </div>
+              <div class="flex gap-2 sm:gap-3">
+                <button
+                  class="flex-1 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-medium hover:bg-emerald-500/20 transition-colors flex items-center justify-center gap-2">
+                  <i
+                    data-lucide="external-link"
+                    class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                  Live Demo
+                </button>
+     
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-24 relative px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto">
+        <div
+          class="glass-card rounded-3xl p-6 sm:p-8 md:p-12 text-center reveal">
+          <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+            Let's Work Together
+          </h2>
+          <p
+            class="text-gray-400 mb-6 sm:mb-8 max-w-xl mx-auto text-sm sm:text-base">
+            I'm always interested in hearing about new projects and
+            opportunities. Whether you have a question or just want to say hi,
+            feel free to reach out!
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12">
+            <a
+              href="mailto:deaa.work@mail.com"
+              class="btn-primary px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-white flex items-center justify-center gap-2 text-sm sm:text-base">
+              <i data-lucide="mail" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+              Send Email
+            </a>
+
+          </div>
+
+          <div class="flex justify-center gap-4 sm:gap-6">
+            <a
+              href="https://wa.me/+963980734524"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:border-emerald-400/50 transition-all">
+              
+
+              <svg xmlns="http://www.w3.org/2000/svg"  class="w-8 h-8" viewBox="0 0 24 24">
+	<path fill="currentColor" d="M8.886 7.17c.183.005.386.015.579.443c.128.285.343.81.519 1.238c.137.333.249.607.277.663c.064.128.104.275.02.448l-.028.058a1.4 1.4 0 0 1-.23.37l-.143.17c-.085.104-.17.206-.242.278c-.129.128-.262.266-.114.522s.668 1.098 1.435 1.777a6.6 6.6 0 0 0 1.903 1.2q.105.045.17.076c.257.128.41.108.558-.064c.149-.173.643-.749.817-1.005c.168-.256.34-.216.578-.128c.238.089 1.504.71 1.761.837l.143.07c.179.085.3.144.352.23c.064.109.064.62-.148 1.222c-.218.6-1.267 1.176-1.742 1.22l-.135.016c-.436.052-.988.12-2.956-.655c-2.426-.954-4.027-3.32-4.35-3.799l-.053-.076l-.006-.008c-.147-.197-1.048-1.402-1.048-2.646c0-1.19.587-1.81.854-2.092l.047-.05a.95.95 0 0 1 .687-.32c.173 0 .347 0 .495.005" />
+	<path fill="currentColor" fill-rule="evenodd" d="M2.184 21.331a.4.4 0 0 0 .487.494l4.607-1.204a10 10 0 0 0 4.76 1.207h.004c5.486 0 9.958-4.446 9.958-9.912a9.83 9.83 0 0 0-2.914-7.011A9.92 9.92 0 0 0 12.042 2c-5.486 0-9.958 4.446-9.958 9.911c0 1.739.458 3.447 1.33 4.954zm2.677-4.068a1.5 1.5 0 0 0-.148-1.15a8.4 8.4 0 0 1-1.129-4.202c0-4.63 3.793-8.411 8.458-8.411c2.27 0 4.388.877 5.986 2.468a8.33 8.33 0 0 1 2.472 5.948c0 4.63-3.793 8.412-8.458 8.412h-.005a8.5 8.5 0 0 1-4.044-1.026a1.5 1.5 0 0 0-1.094-.132l-2.762.721z" clip-rule="evenodd" />
+</svg>
+            </a>
+
+
+            <a
+              href="https://t.me/Deaa0000"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:border-emerald-400/50 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg"  class="w-8 h-8" viewBox="0 0 24 24">
+	<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19c-.14.75-.42 1-.68 1.03c-.58.05-1.02-.38-1.58-.75c-.88-.58-1.38-.94-2.23-1.5c-.99-.65-.35-1.01.22-1.59c.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02c-.09.02-1.49.95-4.22 2.79c-.4.27-.76.41-1.08.4c-.36-.01-1.04-.2-1.55-.37c-.63-.2-1.12-.31-1.08-.66c.02-.18.27-.36.74-.55c2.92-1.27 4.86-2.11 5.83-2.51c2.78-1.16 3.35-1.36 3.73-1.36c.08 0 .27.02.39.12c.1.08.13.19.14.27c-.01.06.01.24 0 .38" />
+</svg>
+            </a>
+<a
+              href="#"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:border-emerald-400/50 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24">
+	<path fill="currentColor" d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02" />
+</svg>
+            </a>
+    
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 sm:py-8 border-t border-white/5 px-4 sm:px-6">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-400 text-xs sm:text-sm text-center md:text-left">
+          © 2026 Deaa Naser. All rights reserved.
+        </div>
+ 
+      </div>
+    </footer>
+
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // GSAP ScrollTrigger setup
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Reveal animations
+      const reveals = document.querySelectorAll(".reveal");
+      reveals.forEach((element, index) => {
+        gsap.fromTo(
+          element,
+          {
+            opacity: 0,
+            y: 30,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+            delay: index * 0.1,
+          },
+        );
+      });
+
+      // Cursor glow effect (desktop only)
+      const cursorGlow = document.getElementById("cursorGlow");
+      const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
+      if (!isTouchDevice && cursorGlow) {
+        document.addEventListener("mousemove", (e) => {
+          cursorGlow.style.left = e.clientX + "px";
+          cursorGlow.style.top = e.clientY + "px";
+          cursorGlow.style.opacity = "1";
+        });
+
+        document.addEventListener("mouseleave", () => {
+          cursorGlow.style.opacity = "0";
+        });
+      } else if (cursorGlow) {
+        cursorGlow.style.display = "none";
+      }
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const closeMenuBtn = document.getElementById("closeMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.add("active");
+        });
+      }
+
+      if (closeMenuBtn && mobileMenu) {
+        closeMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      }
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll("#mobileMenu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+
+      // Smooth scroll for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Navbar background on scroll
+      const nav = document.querySelector("nav");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          nav.classList.add("shadow-lg");
+          nav.style.background = "rgba(10, 10, 15, 0.95)";
+        } else {
+          nav.classList.remove("shadow-lg");
+          nav.style.background = "rgba(19, 19, 31, 0.8)";
+        }
+      });
+
+      // Parallax effect for hero image
+      gsap.to(".float", {
+        yPercent: -20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "section",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Skill tags stagger animation
+      gsap.from(".skill-tag", {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.2,
+        ease: "back.out(1)",
+        scrollTrigger: {
+          trigger: "#skills",
+          start: "top 70%",
+        },
+      });
+    </script>
   </body>
 </html>
