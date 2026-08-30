@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0d12;
+  --color-ink-raised: #151821;
+  --color-ink-raised-2: #1b1f2a;
+  --color-line: rgba(236, 231, 221, 0.12);
+  --color-line-strong: rgba(236, 231, 221, 0.22);
+  --color-paper: #ece7dd;
+  --color-paper-dim: #9c978f;
+  --color-paper-dimmer: #6e6b65;
+  --color-flame: #e4a855;
+  --color-flame-soft: rgba(228, 168, 85, 0.14);
+  --color-flame-line: rgba(228, 168, 85, 0.45);
+  --color-signal: #6fa8a0;
+
+  --font-display: var(--font-fraunces), serif;
+  --font-body: var(--font-plex-sans), sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink text-paper font-body antialiased;
+  }
+  ::selection {
+    @apply bg-flame text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-flame);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply max-w-[1180px] mx-auto px-7;
+  }
+  .eyebrow {
+    @apply font-mono text-xs tracking-[0.14em] uppercase text-flame inline-flex items-center gap-2.5;
+  }
+  .btn-nav {
+    @apply font-mono text-[0.8rem] tracking-[0.04em] uppercase text-paper-dim pb-1.5 border-b border-transparent transition-colors hover:text-paper hover:border-flame-line;
+  }
+  .spine::before {
+    content: "";
+    @apply absolute top-1.5 -bottom-24 w-px;
+    inset-inline-start: 23px; /* Flipped logically */
+    background: linear-gradient(rgba(228, 168, 85, 0.45), var(--color-line) 40%, transparent);
+  }
+  section:last-of-type .spine::before {
+    @apply bottom-0;
+  }
+  .reveal {
+    @apply opacity-0 translate-y-3.5 transition-all duration-500 ease-out;
+  }
+  .reveal.is-visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-[9px] font-mono text-[0.82rem] tracking-[0.05em] uppercase py-3.5 px-[22px] rounded-[2px] border border-transparent transition-all duration-200 ease-out hover:-translate-y-px;
+  }
+  .btn-primary {
+    @apply bg-flame text-ink border-flame hover:bg-transparent hover:text-flame;
+  }
+  .btn-ghost {
+    @apply border-line-strong text-paper hover:border-flame-line hover:text-flame;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { @apply opacity-100 transform-none transition-none; }
+}
