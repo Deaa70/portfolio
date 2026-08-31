@@ -17,6 +17,77 @@ import contImage from "@/assets/cont.png";
 import appImage from "@/assets/mobile-siraj.png";
 import klimateImage from "@/assets/klimate.png";
 
+
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ضياء الناصر — مطور Full-Stack وحلول الذكاء الاصطناعي وبناء المنتجات",
+  description:
+    "ضياء الناصر مطور برمجيات Full-Stack ومطوّر منتجات رقمية، متخصص في React وNext.js وDjango وPython وReact Native وبناء حلول تعتمد على الذكاء الاصطناعي. مؤسس منصة سراج التعليمية.",
+  metadataBase: new URL("https://deaa.vercel.app"),
+  alternates: {
+    canonical: "/ar",
+    languages: {
+      en: "/",
+      ar: "/ar",
+    },
+  },
+  authors: [
+    {
+      name: "ضياء الناصر",
+      url: "https://deaa.vercel.app/ar",
+    },
+  ],
+  creator: "ضياء الناصر",
+  publisher: "ضياء الناصر",
+  keywords: [
+    "ضياء الناصر",
+    "مطور Full-Stack",
+    "مطور برمجيات",
+    "حلول الذكاء الاصطناعي",
+    "بناء المنتجات الرقمية",
+    "مطور React",
+    "مطور Next.js",
+    "مطور Django",
+    "مطور Python",
+    "مطور React Native",
+    "تطوير مواقع",
+    "تطوير تطبيقات",
+    "EdTech",
+    "منصة سراج",
+    "سراج التعليمية",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "ar_SY",
+    url: "https://deaa.vercel.app/ar",
+    siteName: "ضياء الناصر",
+    title: "ضياء الناصر — مطور Full-Stack وحلول الذكاء الاصطناعي وبناء المنتجات",
+    description:
+      "مطور برمجيات Full-Stack أبني مواقع وتطبيقات وأنظمة وحلولاً تعتمد على الذكاء الاصطناعي. مؤسس منصة سراج التعليمية.",
+    images: [
+      {
+        url: "/assets/me.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ضياء الناصر — مطور Full-Stack وحلول الذكاء الاصطناعي وبناء المنتجات",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ضياء الناصر — مطور Full-Stack وحلول الذكاء الاصطناعي وبناء المنتجات",
+    description:
+      "مطور Full-Stack أبني مواقع وتطبيقات وأنظمة وحلولاً تعتمد على الذكاء الاصطناعي. مؤسس منصة سراج.",
+    images: ["/assets/me.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 const Section = ({
   id,
   children,
@@ -81,7 +152,7 @@ export default function ArabicHome() {
               <div className="relative border border-line-strong rounded overflow-hidden aspect-[4/5] bg-ink-raised">
                 <Image
                   src={meImage}
-                  alt="صورة ضياء ناصر"
+                  alt="صورة ضياء الناصر"
                   className="w-full h-full object-cover"
                   priority
                 />
@@ -890,7 +961,7 @@ export default function ArabicHome() {
 
       <footer className="py-7">
         <div className="container-x flex justify-between items-center flex-wrap gap-3 font-mono text-xs text-paper-dimmer">
-          <span>© 2026 ضياء ناصر. جميع الحقوق محفوظة.</span>
+          <span>© 2026 ضياء الناصر. جميع الحقوق محفوظة.</span>
           <span>حمص، سوريا</span>
         </div>
       </footer>

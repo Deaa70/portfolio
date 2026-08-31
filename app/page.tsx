@@ -9,6 +9,72 @@ import contImage from "@/assets/cont.png";
 import appImage from "@/assets/mobile-siraj.png";
 import klimateImage from "@/assets/klimate.png";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Deaa Naser — Full-Stack Developer, AI Solutions & Product Builder",
+  description:
+    "Deaa Naser is a Full-Stack Developer and product builder specializing in React, Next.js, Django, Python, React Native, and AI-powered solutions. Creator of Siraj, an AI-driven educational platform.",
+  metadataBase: new URL("https://deaa.vercel.app"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      ar: "/ar",
+    },
+  },
+  authors: [
+    {
+      name: "Deaa Naser",
+      url: "https://deaa.vercel.app/",
+    },
+  ],
+  creator: "Deaa Naser",
+  publisher: "Deaa Naser",
+  keywords: [
+    "Deaa Naser",
+    "Full-Stack Developer",
+    "AI Solutions",
+    "Product Builder",
+    "React Developer",
+    "Next.js Developer",
+    "Django Developer",
+    "Python Developer",
+    "React Native Developer",
+    "AI Developer",
+    "EdTech",
+    "Siraj",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://deaa.vercel.app/",
+    siteName: "Deaa Naser",
+    title: "Deaa Naser — Full-Stack Developer, AI Solutions & Product Builder",
+    description:
+      "Full-Stack Developer building modern web, mobile, backend, and AI-powered products. Creator of Siraj, an AI-driven educational platform.",
+    images: [
+      {
+        url: "/assets/me.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Deaa Naser — Full-Stack Developer, AI Solutions & Product Builder",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Deaa Naser — Full-Stack Developer, AI Solutions & Product Builder",
+    description:
+      "Full-Stack Developer building modern web, mobile, backend, and AI-powered products. Creator of Siraj.",
+    images: ["/assets/me.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 const Section = ({ id, children }: { id?: string; children: React.ReactNode }) => (
   <section id={id} className="relative py-24 border-b border-line last:border-b-0">
     <div className="container-x grid grid-cols-1 md:grid-cols-[48px_1fr] md:gap-x-8">
