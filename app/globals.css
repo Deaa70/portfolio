@@ -1,78 +1,190 @@
 @import "tailwindcss";
 
+/* ══════════════════════════════════════════════════════════
+   "D" logo design system
+   navy #0F1217 · blue-grey #6B7C86 · teal #4ED1C1 → peach #F4A261
+   ══════════════════════════════════════════════════════════ */
 @theme {
-  --color-ink: #0b0d12;
-  --color-ink-raised: #151821;
-  --color-ink-raised-2: #1b1f2a;
-  --color-line: rgba(236, 231, 221, 0.12);
-  --color-line-strong: rgba(236, 231, 221, 0.22);
-  --color-paper: #ece7dd;
-  --color-paper-dim: #9c978f;
-  --color-paper-dimmer: #6e6b65;
-  --color-flame: #e4a855;
-  --color-flame-soft: rgba(228, 168, 85, 0.14);
-  --color-flame-line: rgba(228, 168, 85, 0.45);
-  --color-signal: #6fa8a0;
+  /* Backgrounds — rich dark navy family */
+  --color-ink: #0F1217;
+  --color-ink-raised: #151B24;
+  --color-ink-raised-2: #1B232E;
 
-  --font-display: var(--font-fraunces), serif;
-  --font-body: var(--font-plex-sans), sans-serif;
-  --font-mono: var(--font-plex-mono), monospace;
+  /* Hairlines */
+  --color-line: #212B36;
+  --color-line-strong: #2C3947;
+
+  /* Type — blue-grey family (spec primary = #6B7C86) */
+  --color-paper: #E9F1F6;        /* headings / emphasis */
+  --color-paper-dim: #6B7C86;    /* body copy */
+  --color-paper-dimmer: #55656F; /* metadata, mono labels */
+
+  /* Accents */
+  --color-teal: #4ED1C1;
+  --color-peach: #F4A261;
+  --color-signal: #4ED1C1;
+
+  /* Fonts (wired to the next/font variables in layout.tsx) */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    @apply bg-ink text-paper font-body antialiased;
-  }
-  ::selection {
-    @apply bg-flame text-ink;
-  }
-  :focus-visible {
-    outline: 2px solid var(--color-flame);
-    outline-offset: 3px;
-  }
+/* ── Base ──────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer components {
-  .container-x {
-    @apply max-w-[1180px] mx-auto px-7;
-  }
-  .eyebrow {
-    @apply font-mono text-xs tracking-[0.14em] uppercase text-flame inline-flex items-center gap-2.5;
-  }
-  .btn-nav {
-    @apply font-mono text-[0.8rem] tracking-[0.04em] uppercase text-paper-dim pb-1.5 border-b border-transparent transition-colors hover:text-paper hover:border-flame-line;
-  }
-  .spine::before {
-    content: "";
-    @apply absolute top-1.5 -bottom-24 w-px;
-    inset-inline-start: 23px; /* Flipped logically */
-    background: linear-gradient(rgba(228, 168, 85, 0.45), var(--color-line) 40%, transparent);
-  }
-  section:last-of-type .spine::before {
-    @apply bottom-0;
-  }
-  .reveal {
-    @apply opacity-0 translate-y-3.5 transition-all duration-500 ease-out;
-  }
-  .reveal.is-visible {
-    @apply opacity-100 translate-y-0;
-  }
+::selection { background: rgba(78, 209, 193, 0.28); color: var(--color-paper); }
 
-  .btn {
-    @apply inline-flex items-center gap-[9px] font-mono text-[0.82rem] tracking-[0.05em] uppercase py-3.5 px-[22px] rounded-[2px] border border-transparent transition-all duration-200 ease-out hover:-translate-y-px;
-  }
-  .btn-primary {
-    @apply bg-flame text-ink border-flame hover:bg-transparent hover:text-flame;
-  }
-  .btn-ghost {
-    @apply border-line-strong text-paper hover:border-flame-line hover:text-flame;
-  }
+/* ── Layout ────────────────────────────────────────────── */
+.container-x {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal { @apply opacity-100 transform-none transition-none; }
+/* ── Type helpers ──────────────────────────────────────── */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: color 0.2s ease, border-color 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+}
+.btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* primary CTA carries the brand gradient */
+.btn-primary {
+  background-image: linear-gradient(100deg, #4ED1C1 0%, #F4A261 100%);
+  color: var(--color-ink);
+  font-weight: 500;
+}
+.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.btn-ghost { border-color: var(--color-line-strong); color: var(--color-paper-dim); }
+.btn-ghost:hover { border-color: rgba(78, 209, 193, 0.5); color: var(--color-teal); }
+
+/* ── Section spine (left rail) ─────────────────────────── */
+.spine::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 0;
+  left: 23.5px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--color-line-strong), transparent 92%);
+}
+
+/* ── Brand gradient text (teal → peach) ────────────────── */
+.text-gradient {
+  background-image: linear-gradient(100deg, var(--color-teal) 5%, var(--color-peach) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Diagonal geometric accents (the </> motif) ────────── */
+
+/* Faint diagonal lattice — put on an absolute overlay div */
+.diag-pattern {
+  background-image:
+    repeating-linear-gradient(-45deg, rgba(78, 209, 193, 0.055) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(45deg,  rgba(244, 162, 97, 0.04)  0 1px, transparent 1px 26px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 92%);
+}
+
+/* Gradient hairline across a card's top edge */
+.diag-top { position: relative; }
+.diag-top::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 1;
+  background-image: linear-gradient(100deg, var(--color-teal), var(--color-peach) 45%, transparent 92%);
+  pointer-events: none;
+}
+
+/* Gradient triangle pinned to a card's top-right corner */
+.corner-cut { position: relative; }
+.corner-cut::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 22px; height: 22px;
+  z-index: 1;
+  background-image: linear-gradient(135deg, var(--color-teal), var(--color-peach));
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* ── Navbar ────────────────────────────────────────────── */
+
+/* Nav links — blue-grey at rest, teal on hover,
+   with a teal→peach underline that sweeps in (the </> slash motif) */
+.btn-nav {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-paper-dim);
+  transition: color 0.2s ease;
+}
+.btn-nav:hover { color: var(--color-teal); }
+
+.btn-nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 1.5px;
+  background-image: linear-gradient(100deg, var(--color-teal), var(--color-peach));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.btn-nav:hover::after { transform: scaleX(1); }
+.btn-nav:dir(rtl)::after { transform-origin: right; } /* sweeps from the right in Arabic */
+
+/* Faint teal→peach sweep tinting the header's bottom hairline */
+.nav-grad-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background-image: linear-gradient(
+    100deg,
+    rgba(78, 209, 193, 0.5),
+    rgba(244, 162, 97, 0.35) 45%,
+    transparent 90%
+  );
+  pointer-events: none;
 }

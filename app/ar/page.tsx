@@ -263,7 +263,7 @@ export default function ArabicHome() {
               className="w-full h-auto rounded-sm"
             />
             <p className="text-sm text-paper-dim mt-4 pt-4 border-t border-line">
-              <b className="text-paper font-medium">1,100 مساهمة</b> في سراج خلال الأشهر السبعة الماضية — من تطوير ميزات جديدة وإصلاح المشاكل، إلى تحسين الأداء وتشغيل المنتج في بيئة الإنتاج.
+              <b className="text-paper font-medium">1,140 مساهمة</b> في سراج خلال الأشهر السبعة الماضية — من تطوير ميزات جديدة وإصلاح المشاكل، إلى تحسين الأداء وتشغيل المنتج في بيئة الإنتاج.
             </p>
           </Reveal>
         </Section>
