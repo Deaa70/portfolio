@@ -7,12 +7,21 @@ const plexSans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono" });
 
 export const metadata: Metadata = {
-  title: "Deaa Naser — AI Engineer & Product Builder",
-  description: "Deaa Naser is an AI Engineer and Product Builder who ships complete intelligent products end to end. Creator of Siraj, an AI education platform live in Syria.",
+  title: "Deaa Naser - Full-Stack Software Engineer, AI Applications",
+  description:
+    "Full-stack software engineer building AI applications with React, Next.js, TypeScript, Python, Django, FastAPI and React Native. Creator of Siraj.",
   openGraph: {
-    title: "Deaa Naser — AI Engineer & Product Builder",
-    description: "I build and ship intelligent products from idea to production.",
+    title: "Deaa Naser - Full-Stack Software Engineer, AI Applications",
+    description:
+      "Full-stack software engineer building AI applications with React, Next.js, TypeScript, Python, Django, FastAPI and React Native.",
     url: "https://deaa.vercel.app/",
+    images: ["https://deaa.vercel.app/assets/me.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Deaa Naser - Full-Stack Software Engineer, AI Applications",
+    description:
+      "Full-stack software engineer building AI applications with React, Next.js, TypeScript, Python, Django, FastAPI and React Native.",
     images: ["https://deaa.vercel.app/assets/me.jpg"],
   },
 };
@@ -25,20 +34,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" dir="ltr" className={`${fraunces.variable} ${plexSans.variable} ${plexMono.variable}`}>
       <head>
-    
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Deaa Naser",
-          "jobTitle": "Full Stack Engineer & Product Builder",
-          "url": "https://deaa.vercel.app/",
-          "email": "mailto:deaa.work7@gmail.com",
-          "sameAs": [
-            "https://github.com/Deaa70",
-            "https://www.linkedin.com/in/deaa-naser-b28573351",
-            "https://www.facebook.com/deaa.naser.52/"
-          ]
-        })}} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Deaa Naser",
+              jobTitle: "Full-Stack Software Engineer, AI Applications",
+              url: "https://deaa.vercel.app/",
+              email: "mailto:deaa.work7@gmail.com",
+              sameAs: [
+                "https://github.com/Deaa70",
+                "https://www.linkedin.com/in/deaa-naser-b28573351",
+              ],
+            }),
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
