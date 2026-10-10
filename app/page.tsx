@@ -63,7 +63,7 @@ export const metadata: Metadata = {
       "Full-stack software engineer building AI applications with React, Next.js, TypeScript, Python, Django, FastAPI and React Native.",
     images: [
       {
-        url: "/assets/me.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Deaa Naser - Full-Stack Software Engineer, AI Applications",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Deaa Naser - Full-Stack Software Engineer, AI Applications",
     description:
       "Full-stack software engineer building AI applications with React, Next.js, TypeScript, Python, Django, FastAPI and React Native.",
-    images: ["/assets/me.jpg"],
+    images: ["/logo.png"],
   },
   robots: { index: true, follow: true },
 };

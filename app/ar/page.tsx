@@ -48,7 +48,7 @@ export const metadata: Metadata = {
       "مهندس برمجيات Full-Stack يبني تطبيقات الذكاء الاصطناعي باستخدام React وNext.js وTypeScript وPython وDjango وFastAPI وReact Native.",
     images: [
       {
-        url: "/assets/me.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "ضياء الناصر - مهندس برمجيات Full-Stack، تطبيقات الذكاء الاصطناعي",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: "ضياء الناصر - مهندس برمجيات Full-Stack، تطبيقات الذكاء الاصطناعي",
     description:
       "مهندس برمجيات Full-Stack يبني تطبيقات الذكاء الاصطناعي باستخدام React وNext.js وTypeScript وPython وDjango وFastAPI وReact Native.",
-    images: ["/assets/me.jpg"],
+    images: ["/logo.png"],
   },
   robots: { index: true, follow: true },
 };
