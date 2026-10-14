@@ -828,6 +828,100 @@ export default function ArabicHome() {
 
         </Section>
 
+
+        
+        {/* TELEGRAM JOB FEED */}
+        <Section id="telegram-job-feed">
+          <Reveal>
+            <span className="eyebrow mb-4">// مشروع</span>
+          </Reveal>
+
+          <Reveal className="flex flex-wrap justify-between gap-6 items-end mb-2">
+            <h2 className="font-display font-bold text-[2.6rem] tracking-tight">
+              موجز الوظائف من تيليغرام
+            </h2>
+            <div className="flex gap-3.5 flex-wrap">
+              <a
+                href="https://github.com/Deaa70/telegram-job-feed"
+                target="_blank"
+                rel="noopener"
+                className="font-mono text-xs tracking-wide uppercase inline-flex items-center gap-1.5 text-paper-dim border-b border-line-strong pb-0.5 hover:text-flame hover:border-flame-line"
+              >
+                الكود المصدري <ArrowRight size={13} />
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-3.5 text-paper-dim text-lg max-w-[640px] leading-[1.8]">
+            نظام أتمتة مبني بـ Python يحوّل منشورات قنوات الوظائف على تيليغرام
+            إلى موجز يومي منظّم للفرص التقنية. يستخدم نماذج اللغة الكبيرة
+            (LLMs) لتصفية المنشورات واستخراج تفاصيل الوظائف، ثم ينشرها برسائل
+            عربية موحّدة مع الحفاظ على المصطلحات التقنية الإنجليزية.
+          </Reveal>
+
+          <Reveal className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+            {[
+              {
+                k: "الجمهور",
+                v: "الباحثون عن عمل الذين يتابعون قنوات متعددة على تيليغرام، ويحتاجون إلى جمع الوظائف التقنية ذات الصلة في موجز واحد بدلاً من فرز الإعلانات والمنشورات يدوياً.",
+              },
+              {
+                k: "تعلّمت",
+                v: "يمكن لنماذج اللغة تصنيف المنشورات واستخراج بيانات منظّمة منها، لكن موثوقية النتائج تحتاج إلى ضوابط برمجية تتحقق من المعلومات وتمنع تكرار الوظائف قبل استهلاك طلبات إضافية إلى النموذج.",
+              },
+              {
+                k: "يشمل",
+                v: "جمع المنشورات من القنوات المحددة · تصنيف المنشورات باستخدام LLM · استخراج تفاصيل كل وظيفة · تنسيق رسائل عربية مع إبقاء المصطلحات التقنية بالإنجليزية · استخراج روابط التقديم المخفية · كشف التكرار على مرحلتين · حفظ سجل المعالجة في SQLite · التشغيل المجدول",
+                wide: true,
+              },
+              {
+                k: "يستخدم",
+                v: "Telethon لقراءة قنوات تيليغرام · واجهات LLM المتوافقة مع OpenAI لتصنيف المنشورات واستخراج بياناتها · Regular Expressions لاستخراج معلومات التواصل والروابط · SQLite لحفظ البيانات وكشف التكرار · Telegram Bot API للنشر · Docker وDokploy للتشغيل المجدول على VPS.",
+                wide: true,
+              },
+            ].map((row) => (
+              <div
+                key={row.k}
+                className={`flex gap-3 items-start ${row.wide ? "md:col-span-2" : ""}`}
+              >
+                <span className="font-mono text-[0.68rem] tracking-[0.08em] uppercase text-paper-dimmer pt-1 w-[78px] flex-shrink-0">
+                  {row.k}
+                </span>
+                <p className="text-paper-dim text-[0.95rem] leading-[1.75]">
+                  {row.v}
+                </p>
+              </div>
+            ))}
+
+            <div className="flex gap-3 items-start md:col-span-2">
+              <span className="font-mono text-[0.68rem] tracking-[0.08em] uppercase text-paper-dimmer pt-1 w-[78px] flex-shrink-0">
+                التقنيات
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Python",
+                  "Telethon",
+                  "OpenAI-Compatible LLM APIs",
+                  "SQLite",
+                  "Telegram Bot API",
+                  "Regular Expressions",
+                  "SHA-256",
+                  "Docker",
+                  "Dokploy",
+                  "Linux VPS",
+                  "python-dotenv",
+                ].map((s) => (
+                  <Chip key={s}>{s}</Chip>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+  
+        </Section>
+
+        
+
         {/* 6. PROBLEM SOLVING */}
         <Section id="problem-solving">
           <Reveal className="mb-8 max-w-[720px]">
@@ -1027,8 +1121,8 @@ export default function ArabicHome() {
                 },
                 {
                   h: "تيليجرام",
-                  v: "@Deaa0000",
-                  href: "https://t.me/Deaa0000",
+                  v: "@DeaaDev0",
+                  href: "https://t.me/DeaaDev0",
                   icon: <Send size={16} />,
                 },
               ].map((item, i) => (

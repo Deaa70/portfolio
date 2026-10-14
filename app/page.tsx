@@ -649,6 +649,98 @@ export default function Home() {
           </Reveal>
         </Section>
 
+
+        {/* TELEGRAM JOB FEED */}
+        <Section id="telegram-job-feed">
+          <Reveal>
+            <span className="eyebrow mb-4">// Project</span>
+          </Reveal>
+
+          <Reveal className="flex flex-wrap justify-between gap-6 items-end mb-2">
+            <h2 className="font-display font-bold text-[2.6rem] tracking-tight">
+              Telegram Job Feed
+            </h2>
+            <div className="flex gap-3.5 flex-wrap">
+              <a
+                href="https://github.com/Deaa70/telegram-job-feed"
+                target="_blank"
+                rel="noopener"
+                className="font-mono text-xs tracking-wide uppercase inline-flex items-center gap-1.5 text-paper-dim border-b border-line-strong pb-0.5 hover:text-teal hover:border-teal/50"
+              >
+                Source code <ArrowRight size={13} />
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-3.5 text-paper-dim text-lg max-w-[640px]">
+            A Python automation pipeline that turns noisy Telegram job
+            channels into a clean, deduplicated daily feed of relevant tech
+            vacancies, using an LLM to filter posts, extract structured details,
+            and publish consistently formatted Arabic messages.
+          </Reveal>
+
+          <Reveal className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+            {[
+              {
+                k: "Built for",
+                v: "Job seekers following multiple Telegram channels who need one focused feed of relevant tech jobs without manually sorting through advertisements, courses, scams, and unrelated vacancies.",
+              },
+              {
+                k: "Learned",
+                v: "LLMs can classify and structure unorganized job posts, but factual details need deterministic safeguards. Duplicate detection should also happen before expensive processing whenever possible.",
+              },
+              {
+                k: "Includes",
+                v: "Read-only channel collection · batch LLM classification · per-post detail extraction · Arabic job summaries with English technical terms preserved · hidden application-link extraction · two-stage duplicate detection · SQLite-backed processing history · scheduled execution",
+                wide: true,
+              },
+              {
+                k: "Uses",
+                v: "Telethon to read selected channels · OpenAI-compatible LLM APIs for classification and extraction · regular expressions to capture contact details · SQLite for persistence and deduplication · Telegram Bot API for publishing · Docker and Dokploy for scheduled VPS execution.",
+                wide: true,
+              },
+            ].map((row) => (
+              <div
+                key={row.k}
+                className={`flex gap-3 items-start ${row.wide ? "md:col-span-2" : ""}`}
+              >
+                <span className="font-mono text-[0.68rem] tracking-[0.08em] uppercase text-paper-dimmer pt-1 w-[78px] flex-shrink-0">
+                  {row.k}
+                </span>
+                <p className="text-paper-dim text-[0.95rem] leading-[1.65]">
+                  {row.v}
+                </p>
+              </div>
+            ))}
+
+            <div className="flex gap-3 items-start md:col-span-2">
+              <span className="font-mono text-[0.68rem] tracking-[0.08em] uppercase text-paper-dimmer pt-1 w-[78px] flex-shrink-0">
+                Stack
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Python",
+                  "Telethon",
+                  "OpenAI SDK",
+                  "LLM Integration",
+                  "SQLite",
+                  "Telegram Bot API",
+                  "Regular Expressions",
+                  "Docker",
+                  "Dokploy",
+                  "Linux VPS",
+                  "python-dotenv",
+                ].map((s) => (
+                  <Chip key={s}>{s}</Chip>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+   
+        </Section>
+
+        
         {/* 6. PROBLEM SOLVING */}
         <Section id="problem-solving">
           <Reveal className="mb-8 max-w-[720px]">
@@ -816,7 +908,7 @@ export default function Home() {
                   href: "https://wa.me/+963980734524",
                   icon: <MessageCircle size={16} />,
                 },
-                { h: "Telegram", v: "@Deaa0000", href: "https://t.me/Deaa0000", icon: <Send size={16} /> },
+                { h: "Telegram", v: "@DeaaDev0", href: "https://t.me/DeaaDev0", icon: <Send size={16} /> },
               ].map((item, i) => (
                 <li key={i} className="flex items-center justify-between py-4 border-b border-line">
                   <span className="font-mono text-xs text-paper-dimmer uppercase tracking-[0.05em]">{item.h}</span>
